@@ -1,0 +1,109 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Login.spec.jsx Should render the login form 1`] = `
+<div
+  class="login-page"
+  style="background-image: url(test-file-stub);"
+>
+  <h1
+    class="game-title"
+  >
+    WonderCards
+  </h1>
+  <form
+    class="login-box"
+  >
+    <h2>
+      Login
+    </h2>
+    <div
+      class="login-inputs"
+    >
+      <input
+        placeholder="Username"
+        type="text"
+        value=""
+      />
+      <input
+        placeholder="Password"
+        type="password"
+        value=""
+      />
+    </div>
+    <div
+      style="display: flex; gap: 10px;"
+    >
+      <button
+        data-testid="login-button"
+        disabled=""
+        type="submit"
+      >
+        Login
+      </button>
+      <button
+        data-testid="register-button"
+        type="button"
+      >
+        Register
+      </button>
+    </div>
+    <p
+      style="color: red;"
+    />
+  </form>
+</div>
+`;
+
+exports[`Login.spec.jsx Should render the login form with disabled login button if there are no values 1`] = `
+<div
+  class="login-page"
+  style="background-image: url(test-file-stub);"
+>
+  <h1
+    class="game-title"
+  >
+    WonderCards
+  </h1>
+  <form
+    class="login-box"
+  >
+    <h2>
+      Login
+    </h2>
+    <div
+      class="login-inputs"
+    >
+      <input
+        placeholder="Username"
+        type="text"
+        value=""
+      />
+      <input
+        placeholder="Password"
+        type="password"
+        value=""
+      />
+    </div>
+    <div
+      style="display: flex; gap: 10px;"
+    >
+      <button
+        data-testid="login-button"
+        disabled=""
+        type="submit"
+      >
+        Login
+      </button>
+      <button
+        data-testid="register-button"
+        type="button"
+      >
+        Register
+      </button>
+    </div>
+    <p
+      style="color: red;"
+    />
+  </form>
+</div>
+`;

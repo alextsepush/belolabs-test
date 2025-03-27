@@ -54,8 +54,8 @@ const Login = ({ onLogin }) => {
       />
         </div>
       <div style={{ display: 'flex', gap: '10px' }}>
-        <button type="submit">Login</button>
-        <button type="button" onClick={handleRegisterRedirect}>
+        <button data-testid="login-button" type="submit" disabled={!formData.password || !formData.username}>Login</button>
+        <button data-testid="register-button" type="button" onClick={handleRegisterRedirect}>
           Register
         </button>
       </div>

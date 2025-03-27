@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { Box, Grid, Button, Modal, Typography } from "@mui/material";
 import { styled } from "@mui/system";
 import PropTypes from "prop-types";
-import { useSpring, animated } from "@react-spring/web";
+import { useSpring, animated, a } from "@react-spring/web";
 import background from "../assets/images/mode1.gif";
 import bgMusic from "../assets/audio/memory-bg.mp3";
 import axios from "axios";
@@ -122,7 +122,7 @@ const PixelTimerBox = styled(Box)(({ theme }) => ({
   textAlign: "center",
 }));
 
-const CardContainer = styled(Box)({
+const CardContainer = styled(a.div)({
   perspective: "1000px",
   cursor: "pointer",
   width: "220px",
@@ -137,7 +137,7 @@ const CardInner = styled(animated.div)({
   transition: "transform 0.6s",
 });
 
-const CardFront = styled(Box)({
+const CardFront = styled(a.div)({
   position: "absolute",
   top: 0,
   left: 0,
@@ -154,7 +154,7 @@ const CardFront = styled(Box)({
   boxShadow: "0 4px 8px rgba(0, 0, 0, 0.5)",
 });
 
-const CardBack = styled(Box)({
+const CardBack = styled(a.div)({
   position: "absolute",
   top: 0,
   left: 0,
@@ -221,18 +221,23 @@ const PixelButtonModal = styled(Button)(({ theme }) => ({
 
 // Card Component
 const Card = ({ card, handleClick, flipped, matched }) => {
-  const { transform } = useSpring({
-    transform: flipped || matched ? "rotateY(180deg)" : "rotateY(0deg)",
-    config: { tension: 500, friction: 30 },
-  });
+  const { transform, opacity } = useSpring({
+    opacity: flipped || matched ? 1 : 0,
+    transform: `rotateY(${flipped || matched ? 180 : 0}deg)`,
+    config: { mass: 5, tension: 500, friction: 80 },
+  })
 
   return (
     <CardContainer onClick={handleClick}>
-      <CardInner style={{ transform }}>
-        <CardFront>
+      <CardInner>
+        <CardFront style={{
+          opacity,
+          transform,
+          rotateY: '180deg',
+        }}>
           <img src={card.image} alt="Card front" style={{ width: "140%", height: "140%" }} />
         </CardFront>
-        <CardBack>
+        <CardBack style={{ opacity: opacity.to(o => 1 - o), transform }}>
           <img src="/images/Back2.png" alt="Card back" style={{ width: "120%", height: "120%" }} />
         </CardBack>
       </CardInner>
