@@ -42,8 +42,8 @@ const shuffleArray = (array) => {
 };
 const saveGameData = async (gameData) => {
   try {
-    const response = await axios.post("http://localhost:5000/api/memory/save", gameData, {
-      headers: { "Content-Type": "application/json" },
+    const response = await axios.post("http://localhost:3000/api/memory/save", gameData, {
+      headers: { "Content-Type": "application/json", gametoken: localStorage.getItem("token") },
     });
 
     console.log("Game data saved successfully", response.data);
@@ -65,7 +65,7 @@ const StyledGameContainer = styled(Box)(({ theme, mouseDisabled }) => ({
   backgroundPosition: "center",
   backgroundRepeat: "no-repeat",
   position: "relative",
-  pointerEvents: mouseDisabled ? "none" : "auto", 
+  pointerEvents: mouseDisabled ? "none" : "auto",
 
 }));
 
@@ -281,10 +281,10 @@ const MemoryMedium = () => {
         timeTaken: timer,
     });
 };
-  
+
   const handleNewGame = () => {
-   
-    
+
+
     setCards(shuffleArray(cardImages));
     setMatchedCards([]);
     setFlippedCards([]);
@@ -294,18 +294,18 @@ const MemoryMedium = () => {
     setInitialReveal(true);
     setAudioIndex(0); // Reset audio index
 
-    
+
     const mouseDisableDuration = 2000;
     setMouseDisabled(true);
     setTimeout(() => {
       setMouseDisabled(false);  // Re-enable mouse events after mouseDisableDuration
     }, mouseDisableDuration);
 
-  
+
     setTimeout(() => {
       setInitialReveal(false);
       setTimerActive(true);
-   
+
     }, 1500);
   };
   const handleBackButton = () => {
@@ -321,8 +321,8 @@ const MemoryMedium = () => {
   const handleModalNo = () => {
     setOpenModal(false); // Close the modal and resume game
   };
-  
- 
+
+
   useEffect(() => {
     handleNewGame();
     const handleFirstClick = () => {
@@ -366,7 +366,7 @@ const MemoryMedium = () => {
     }
   }, [flippedCards, audioIndex, sfxVolume]);
 
-  
+
   useEffect(() => {
     if (matchedCards.length === cards.length && cards.length > 0) {
         // Play the congratulations audio
@@ -385,7 +385,7 @@ const MemoryMedium = () => {
                     gameDate: new Date(),
                     failed: failedAttempts,
                     difficulty: defaultDifficulty,
-                    completed: 1,  
+                    completed: 1,
                     timeTaken: timer,
                 });
                 localStorage.setItem("gameCompleted", "true");
@@ -437,7 +437,7 @@ const MemoryMedium = () => {
   ))}
 </Grid>
       <Box sx={{ mt: 2, textAlign: "center" }}>
-     
+
 <PixelButton onClick={() => { handleSaveNewGame(); handleNewGame(); }} sx={{ mt: 2 }}>
           New Game
         </PixelButton>

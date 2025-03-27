@@ -69,7 +69,7 @@ const Play = () => {
   const [PlaymodalIsOpen, setModalPlayIsOpen] = useState(false);
   const [difficulty, setDifficulty] = useState(null);
   const [isCalmMode, setIsCalmMode] = useState(false);
-  
+
   const [bgVolume, setBgVolume] = useState(
     localStorage.getItem("bgVolume") !== null ? parseInt(localStorage.getItem("bgVolume"), 10) : 50
   );
@@ -148,6 +148,11 @@ const Play = () => {
     clickAudioRef.current.play().catch((error) =>
       console.error("Click sound playback failed:", error)
     );
+  };
+
+  const handleHistory = async () => {
+    playClickSound();
+    navigate('/history');
   };
 
   const SettingopenModal = () => {
@@ -241,6 +246,13 @@ const Play = () => {
           onMouseEnter={playHoverSound}
         >
           Settings
+        </button>
+        <button
+            className={`game-button ${isCalmMode ? "calm-button" : ""}`}
+            onClick={handleHistory}
+            onMouseEnter={playHoverSound}
+        >
+          History
         </button>
       </div>
       <Modal

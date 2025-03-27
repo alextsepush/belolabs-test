@@ -5,6 +5,7 @@ const bodyParser = require('body-parser');
 const connectDB = require('./config/database');
 const userRoutes = require('./routes/userRoutes');
 const memoryRoutes = require('./routes/memoryRoutes');
+const {authorizerMiddleware} = require("./middleware/authorizerMiddleware");
 
 
 // Load environment variables
@@ -26,7 +27,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 // Routes
 app.use('/api/users', userRoutes); // Ensure this line exists
-app.use('/api/memory', memoryRoutes);
+app.use('/api/memory', authorizerMiddleware, memoryRoutes);
 
 
 // Connect to MongoDB
@@ -38,5 +39,5 @@ app.get('/', (req, res) => {
 });
 
 // Start Server
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));

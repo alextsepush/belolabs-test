@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import backgroundGif from "../assets/images/play.gif";
 
 const Login = ({ onLogin }) => {
   const [formData, setFormData] = useState({ username: '', password: '' });
@@ -10,7 +11,7 @@ const Login = ({ onLogin }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post('http://localhost:5000/api/users/login', formData);
+      const response = await axios.post('http://localhost:3000/api/users/login', formData);
       localStorage.setItem('token', response.data.token);
       localStorage.setItem('userID', response.data.userID); // Save the userID
       onLogin();
@@ -23,15 +24,22 @@ const Login = ({ onLogin }) => {
       }
     }
   };
-  
+
 
   const handleRegisterRedirect = () => {
     navigate('/register'); // Redirect to the Register page
   };
 
   return (
-    <form onSubmit={handleSubmit}>
+      <div className="login-page" style={{
+          backgroundImage: `url(${backgroundGif})`,
+      }}>
+          <h1 className={`game-title`}>
+              WonderCards
+          </h1>
+    <form onSubmit={handleSubmit} className="login-box">
       <h2>Login</h2>
+        <div className="login-inputs">
       <input
         type="text"
         placeholder="Username"
@@ -44,6 +52,7 @@ const Login = ({ onLogin }) => {
         value={formData.password}
         onChange={(e) => setFormData({ ...formData, password: e.target.value })}
       />
+        </div>
       <div style={{ display: 'flex', gap: '10px' }}>
         <button type="submit">Login</button>
         <button type="button" onClick={handleRegisterRedirect}>
@@ -52,6 +61,7 @@ const Login = ({ onLogin }) => {
       </div>
       <p style={{ color: 'red' }}>{error}</p>
     </form>
+      </div>
   );
 };
 
